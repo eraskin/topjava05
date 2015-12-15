@@ -120,7 +120,7 @@ UserMealRestController должен уметь обрабатывать запр
     - Отдать свою еду, отфильтрованную по startDate, startTime, endDate, endTime
     - Отдать/удалить свою еду по id, параметр запроса - id еды. 
                         Если еда с этим id чужая или отсутствует - NotFoundException
-    - Сохранить/обновить еду, параметр запроса - UserMeal, сконструированный из id, dateTime, description, calories (без User/userId)
-                        Если обновляемая еда с этим id чужая или отсутствует - NotFoundException
+    - Сохранить/обновить еду, параметр запроса - UserMeal, сконструированный из id, dateTime, description, calories
+         (без User/userId). Если обновляемая еда с этим id чужая или отсутствует - NotFoundException
   
 Т.к. контроллер позволяет управлять ТОЛЬКО своей едой, userId в параметрах методов контроллера НЕТ (см ProfileRestController). 
