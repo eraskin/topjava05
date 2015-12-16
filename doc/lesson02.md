@@ -123,4 +123,8 @@ UserMealRestController должен уметь обрабатывать запр
     - Сохранить/обновить еду, параметр запроса - UserMeal, сконструированный из id, dateTime, description, calories
          (без User/userId). Если обновляемая еда с этим id чужая или отсутствует - NotFoundException
   
-Т.к. контроллер позволяет управлять ТОЛЬКО своей едой, userId в параметрах методов контроллера НЕТ (см ProfileRestController). 
+Т.к. контроллер позволяет управлять ТОЛЬКО своей едой, userId снаружи не приходит (см ProfileRestController). 
+
+UserMealWithExceed переносим в пакет to (transfer objects), он должен отдаваться из контроллера (тк сервлеты удалим) и слой репозиториев о нем ничего не должен знать.
+
+Закрывать в сервлете `springContext` грамотнее всего в `HttpServlet.destroy`
