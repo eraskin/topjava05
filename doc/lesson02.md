@@ -114,7 +114,7 @@ Optional
 ---------------------
 ### Подсказки по HW02 (для проверки, лучше сначала сделать API самостоятельно)
 
-UserMealRestController должен уметь обрабатывать запросы:
+- UserMealRestController должен уметь обрабатывать запросы:
 
     - Отдать свою еду (для отображения в таблице, формат List<UserMealWithExceed>), запрос БЕЗ параметров
     - Отдать свою еду, отфильтрованную по startDate, startTime, endDate, endTime
@@ -125,6 +125,6 @@ UserMealRestController должен уметь обрабатывать запр
   
 Т.к. контроллер позволяет управлять ТОЛЬКО своей едой, userId снаружи не приходит (см ProfileRestController). 
 
-UserMealWithExceed переносим в пакет to (transfer objects), он должен отдаваться из контроллера (тк сервлеты удалим) и слой репозиториев о нем ничего не должен знать.
+- UserMealWithExceed переносим в пакет to (transfer objects), он должен отдаваться из контроллера (тк сервлеты удалим) и слой репозиториев о нем ничего не должен знать.
 
-Закрывать в сервлете `springContext` грамотнее всего в `HttpServlet.destroy`
+- Закрывать в сервлете `springContext` грамотнее всего в `HttpServlet.destroy`
