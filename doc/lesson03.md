@@ -1,6 +1,6 @@
 # Занятие 3 онлайн проекта <a href="https://github.com/JavaWebinar/topjava05">Topjava</a>
 
-## <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFT1NxdTFOQ1dvVnM">Материалы урока</a>
+## <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFfllmQWR2cE90UGp5RERHaE95cnVDNmZTRFJCejVhM191NDZlREwzeDdXdmc">Материалы урока</a>
 
 ## <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFdDhnNHFMU2dKQzQ">HW2</a>
 - **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFcUluQzdoOV9rc1U">1_ HW2_ repository.patch</a>**
@@ -72,7 +72,7 @@
 
 - **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFX2prZ3JvVmJFUlU">14_ fix_ id.patch</a>**
 ## Домашнее задание HW03
-
+```
     - Понять, почему перестали работать SpringMain/ AdminInMemoryTest/ SpringAdminInMemoryTest
     - Дополнить скрипты создания и инициализации базы таблицой MEALS. Запустить скрипты на вашу базу (через Run)
     - Реализовать через Spring JDBC Template JdbcUserMealRepositoryImpl
@@ -87,7 +87,7 @@
       - где преобразовывать Timestamp <-> LocalDateTime?
         Можно в геттерах/сеттерах UserMeal, но лучше сделать свой RowMapper
     - Проверить работу MealServelt, запустив приложение
-
+```
 Optional
 
     - Сделать тестовые данные MealTestData, АНОЛОГИЧНЫЕ пропопулированным в populateDB.sql.
