@@ -38,8 +38,8 @@ public class UserMeal {
         return dateTime;
     }
 
-    public void setDateTime(Timestamp dateTime) {
-        this.dateTime = dateTime.toLocalDateTime();
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getDescription() {

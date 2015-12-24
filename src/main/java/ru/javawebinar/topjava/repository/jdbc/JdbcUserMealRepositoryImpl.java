@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -31,7 +32,16 @@ import java.util.List;
 @Repository
 public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
-    private static final BeanPropertyRowMapper<UserMeal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserMeal.class);
+    // private static final BeanPropertyRowMapper<UserMeal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserMeal.class);
+
+    RowMapper  ROW_MAPPER = (rs, rowNum) -> {
+        UserMeal meal = new UserMeal();
+        meal.setId(rs.getInt("id"));
+        meal.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
+        meal.setDescription(rs.getString("description"));
+        meal.setCalories(rs.getInt("calories"));
+        return meal;
+    };
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
