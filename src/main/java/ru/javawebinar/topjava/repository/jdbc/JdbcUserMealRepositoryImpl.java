@@ -71,9 +71,11 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
             Number newKey = insertUserMeal.executeAndReturnKey(map);
             meal.setId(newKey.intValue());
         } else {
-            namedParameterJdbcTemplate.update(
+            if(namedParameterJdbcTemplate.update(
                     "UPDATE meals SET user_id=:user_id, dateTime=:dateTime, description=:description, " +
-                            "calories=:calories WHERE id=:id", map);
+                            "calories=:calories WHERE id=:id", map) == 0) {
+                return null; // in that case on service layer there will be NotFoundException thrown
+            }
         }
         return meal;
     }
