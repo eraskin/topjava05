@@ -35,4 +35,4 @@ CREATE TABLE meals
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE INDEX CONCURRENTLY idx_salary ON meals(dateTime);
+CREATE INDEX CONCURRENTLY idx_salary ON meals(user_id, dateTime);
