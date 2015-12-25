@@ -34,7 +34,7 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     // private static final BeanPropertyRowMapper<UserMeal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserMeal.class);
 
-    RowMapper  ROW_MAPPER = (rs, rowNum) -> {
+    RowMapper<UserMeal>  ROW_MAPPER = (rs, rowNum) -> {
         UserMeal meal = new UserMeal();
         meal.setId(rs.getInt("id"));
         meal.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
