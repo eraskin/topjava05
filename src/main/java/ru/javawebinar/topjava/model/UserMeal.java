@@ -1,15 +1,12 @@
 package ru.javawebinar.topjava.model;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
  * GKislin
  * 11.01.2015.
  */
-public class UserMeal {
-    protected Integer id;
-
+public class UserMeal extends BaseEntity {
     protected LocalDateTime dateTime;
 
     protected String description;
@@ -28,10 +25,6 @@ public class UserMeal {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public LocalDateTime getDateTime() {
@@ -56,14 +49,6 @@ public class UserMeal {
 
     public void setCalories(int calories) {
         this.calories = calories;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public boolean isNew() {
-        return id == null;
     }
 
     @Override
