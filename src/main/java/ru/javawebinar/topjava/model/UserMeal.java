@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @NamedQueries({
         @NamedQuery(name = UserMeal.DELETE, query = "DELETE FROM UserMeal um WHERE um.id=:id AND um.user.id=:user_id"),
         @NamedQuery(name = UserMeal.GET_ONE_BY_USER_ID, query = "SELECT um FROM UserMeal um WHERE um.id=:id AND um.user.id=:user_id"),
-        @NamedQuery(name = UserMeal.GET_ALL_BY_USER_ID, query = "SELECT um FROM UserMeal um WHERE um.user.id=:user_id"),
-        @NamedQuery(name = UserMeal.GET_BETWEEN_BY_USER_ID, query = "SELECT um FROM UserMeal um WHERE um.user.id=:user_id AND um.dateTime BETWEEN :startDate AND :endDate ORDER BY um.dateTime")
+        @NamedQuery(name = UserMeal.GET_ALL_BY_USER_ID, query = "SELECT um FROM UserMeal um WHERE um.user.id=:user_id ORDER BY um.dateTime DESC"),
+        @NamedQuery(name = UserMeal.GET_BETWEEN_BY_USER_ID, query = "SELECT um FROM UserMeal um WHERE um.user.id=:user_id AND um.dateTime BETWEEN :startDate AND :endDate ORDER BY um.dateTime DESC")
 
 })
 @Entity
@@ -83,6 +83,10 @@ public class UserMeal extends BaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
     @Override

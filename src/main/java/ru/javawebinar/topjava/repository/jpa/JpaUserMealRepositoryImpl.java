@@ -28,12 +28,22 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
     @Transactional
     public UserMeal save(UserMeal userMeal, int userId) {
         User ref = em.getReference(User.class, userId);
-        userMeal.setUser(ref);
 
         if (userMeal.isNew()) {
+            userMeal.setUser(ref);
             em.persist(userMeal);
             return userMeal;
         } else {
+            if(userMeal.getUser() == null) {
+                UserMeal userMealOld = get(userMeal.getId(), userId);
+                if(userMealOld.getUser().getId() != userId) {
+                    return null;
+                }
+            } else if(userMeal.getUser().getId() != userId) {
+                return null;
+            }
+
+            userMeal.setUser(ref);
             return em.merge(userMeal);
         }
     }
@@ -63,7 +73,7 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
         return em.createNamedQuery(UserMeal.GET_BETWEEN_BY_USER_ID, UserMeal.class)
                 .setParameter("user_id", userId)
                 .setParameter("startDate", startDate)
-                .setParameter("endDate", startDate)
+                .setParameter("endDate", endDate)
                 .getResultList();
     }
 }
