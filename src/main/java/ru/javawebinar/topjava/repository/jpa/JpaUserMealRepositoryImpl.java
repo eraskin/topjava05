@@ -27,9 +27,8 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
     @Override
     @Transactional
     public UserMeal save(UserMeal userMeal, int userId) {
-        User ref = em.getReference(User.class, userId);
-
         if (userMeal.isNew()) {
+            User ref = em.getReference(User.class, userId);
             userMeal.setUser(ref);
             em.persist(userMeal);
             return userMeal;
@@ -38,13 +37,17 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
                 UserMeal userMealOld = get(userMeal.getId(), userId);
                 if(userMealOld.getUser().getId() != userId) {
                     return null;
+                } else {
+                    userMeal.setUser(userMealOld.getUser());
+                    return em.merge(userMeal);
                 }
             } else if(userMeal.getUser().getId() != userId) {
                 return null;
+            } else {
+                userMeal.setUser(userMeal.getUser());
+                return em.merge(userMeal);
             }
 
-            userMeal.setUser(ref);
-            return em.merge(userMeal);
         }
     }
 
