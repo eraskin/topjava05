@@ -1,23 +1,25 @@
 package ru.javawebinar.topjava.service;
 
-import org.junit.Assert;
-import org.junit.Before;
+import com.google.common.base.Stopwatch;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static ru.javawebinar.topjava.MealTestData.*;
@@ -31,6 +33,26 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserMealServiceTest {
+
+    private static final LoggerWrapper LOG = LoggerWrapper.get(UserMealServiceTest.class);
+
+    @Rule
+    public TestRule watchman = new TestWatcher() {
+
+        private Stopwatch timer;
+
+        @Override
+        protected void starting(Description description) {
+            super.starting(description);
+            timer = Stopwatch.createStarted();
+        }
+
+        @Override
+        protected void finished(Description description) {
+            super.finished(description);
+            LOG.info(description.getMethodName() + " takes " + timer.stop());
+        }
+    };
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
