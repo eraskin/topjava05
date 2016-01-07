@@ -19,9 +19,8 @@ import java.util.List;
 public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer> {
 
     @Transactional
-    @Modifying
-    @Query("DELETE FROM UserMeal u WHERE u.id=:id and u.user.id=:user_id")
-    int delete(@Param("id") int id, @Param("user_id") int userId);
+    @Override
+    void delete(Integer id);
 
     @Override
     @Transactional

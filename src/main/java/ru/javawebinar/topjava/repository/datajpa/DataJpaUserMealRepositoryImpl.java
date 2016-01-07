@@ -39,7 +39,13 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
 
     @Override
     public boolean delete(int id, int userId) {
-        return proxy.delete(id, userId) != 0;
+        if(get(id, userId) != null) {
+            proxy.delete(id);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override
