@@ -27,12 +27,9 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
         User user = userProxy.getOne(userId);
         userMeal.setUser(user);
 
-        if(userMeal.isNew()) {
-            return proxy.save(userMeal);
+        if(!userMeal.isNew() && get(userMeal.getId(), userId) == null) {
+            return null;
         } else {
-            if(get(userMeal.getId(), userId) == null) {
-                return null;
-            }
             return proxy.save(userMeal);
         }
     }
