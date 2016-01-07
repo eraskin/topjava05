@@ -40,6 +40,6 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
 
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return null;
+        return proxy.findByDateTimeBetweenAndUserIdEqualsOrderByDateTimeDesc(startDate, endDate, userId);
     }
 }

@@ -32,6 +32,8 @@ public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer
 
     List<UserMeal> getAllByUserIdOrderByDateTimeDesc(int userId);
 
+    List<UserMeal> findByDateTimeBetweenAndUserIdEqualsOrderByDateTimeDesc(LocalDateTime startDate, LocalDateTime endDate, int userId);
+
     @Override
     List<UserMeal> findAll(Sort sort);
 
