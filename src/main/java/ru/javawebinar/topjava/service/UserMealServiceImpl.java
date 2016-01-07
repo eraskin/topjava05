@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
@@ -19,11 +21,13 @@ public class UserMealServiceImpl implements UserMealService {
     @Autowired
     private UserMealRepository repository;
 
+    @Cacheable("meals")
     @Override
     public UserMeal get(int id, int userId) {
         return ExceptionUtil.check(repository.get(id, userId), id);
     }
 
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public void delete(int id, int userId) {
         ExceptionUtil.check(repository.delete(id, userId), id);
@@ -34,18 +38,26 @@ public class UserMealServiceImpl implements UserMealService {
         return repository.getBetween(startDateTime, endDateTime, userId);
     }
 
+    @Cacheable("meals")
     @Override
     public Collection<UserMeal> getAll(int userId) {
         return repository.getAll(userId);
     }
 
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public UserMeal update(UserMeal meal, int userId) {
         return ExceptionUtil.check(repository.save(meal, userId), meal.getId());
     }
 
+    @CacheEvict(value = "meals", allEntries = true)
     @Override
     public UserMeal save(UserMeal meal, int userId) {
         return repository.save(meal, userId);
+    }
+
+    @CacheEvict(value = "meals", allEntries = true)
+    @Override
+    public void evictCache() {
     }
 }
