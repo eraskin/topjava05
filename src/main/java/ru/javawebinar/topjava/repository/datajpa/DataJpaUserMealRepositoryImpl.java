@@ -24,12 +24,15 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
 
     @Override
     public UserMeal save(UserMeal userMeal, int userId) {
+        User user = userProxy.getOne(userId);
+        userMeal.setUser(user);
+
         if(userMeal.isNew()) {
             return proxy.save(userMeal);
         } else {
-            get(userMeal.getId(), userId);
-            User user = userProxy.getOne(userId);
-            userMeal.setUser(user);
+            if(get(userMeal.getId(), userId) == null) {
+                return null;
+            }
             return proxy.save(userMeal);
         }
     }
