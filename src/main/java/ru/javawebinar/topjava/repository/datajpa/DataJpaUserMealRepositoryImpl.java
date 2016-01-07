@@ -30,7 +30,7 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
 
     @Override
     public UserMeal get(int id, int userId) {
-        return proxy.findOne(id);
+        return proxy.findByIdAndUserIdEquals(id, userId);
     }
 
     @Override
