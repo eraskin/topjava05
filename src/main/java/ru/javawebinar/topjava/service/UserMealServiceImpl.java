@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
+import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 
 import java.time.LocalDateTime;
@@ -20,6 +22,9 @@ public class UserMealServiceImpl implements UserMealService {
 
     @Autowired
     private UserMealRepository repository;
+
+    @Autowired
+    private UserRepository userRepo;
 
     @Cacheable("meals")
     @Override
@@ -59,5 +64,12 @@ public class UserMealServiceImpl implements UserMealService {
     @CacheEvict(value = "meals", allEntries = true)
     @Override
     public void evictCache() {
+    }
+
+    @Transactional
+    public UserMeal getWithUser(Integer id, Integer userId) {
+        UserMeal meal = get(id, userId);
+        meal.setUser(userRepo.get(userId));
+        return meal;
     }
 }
