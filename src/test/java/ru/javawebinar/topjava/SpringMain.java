@@ -21,7 +21,10 @@ import java.util.List;
 public class SpringMain {
     public static void main(String[] args) {
         // java 7 Automatic resource management
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml","spring/mock.xml")) {
+        try (ClassPathXmlApplicationContext appCtx = new ClassPathXmlApplicationContext()) {
+            appCtx.getEnvironment().setActiveProfiles(Profiles.POSTGRES, Profiles.DATA_JPA);
+            appCtx.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
+            appCtx.refresh();
             System.out.println(Arrays.toString(appCtx.getBeanDefinitionNames()));
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
             System.out.println(adminUserController.create(new User(1, "userName", "email", "password", Role.ROLE_ADMIN)));
