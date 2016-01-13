@@ -2,6 +2,9 @@ package ru.javawebinar.topjava.web.meal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.UserMeal;
@@ -23,6 +26,12 @@ public class UserMealRestController {
 
     @Autowired
     private UserMealService service;
+
+    @RequestMapping(value = "/meals", method = RequestMethod.GET)
+    public String mealsList(Model model) {
+        model.addAttribute("mealList", UserMealsUtil.getWithExceeded(service.getAll(LoggedUser.id()), LoggedUser.getCaloriesPerDay()));
+        return "mealList";
+    }
 
     public UserMeal get(int id) {
         int userId = LoggedUser.id();

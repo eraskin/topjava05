@@ -18,11 +18,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class RootController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
-    private UserMealService mealService;
+    private UserService userService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
@@ -33,12 +31,6 @@ public class RootController {
     public String userList(Model model) {
         model.addAttribute("userList", userService.getAll());
         return "userList";
-    }
-
-    @RequestMapping(value = "/meals", method = RequestMethod.GET)
-    public String mealsList(Model model) {
-        model.addAttribute("mealList", UserMealsUtil.getWithExceeded(mealService.getAll(LoggedUser.id()), LoggedUser.getCaloriesPerDay()));
-        return "mealList";
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
