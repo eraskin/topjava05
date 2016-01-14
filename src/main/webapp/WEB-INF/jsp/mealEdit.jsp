@@ -12,7 +12,7 @@
     <h3><fmt:message key="meals.edit"/></h3>
     <hr>
     <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.UserMeal" scope="request"/>
-    <form method="post" action="meals">
+    <form method="post" action="update">
         <input type="hidden" name="id" value="${meal.id}">
         <dl>
             <dt>DateTime:</dt>

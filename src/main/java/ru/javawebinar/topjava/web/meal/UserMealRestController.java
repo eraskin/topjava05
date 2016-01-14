@@ -27,12 +27,6 @@ public class UserMealRestController {
     @Autowired
     private UserMealService service;
 
-    @RequestMapping(value = "/meals", method = RequestMethod.GET)
-    public String mealsList(Model model) {
-        model.addAttribute("mealList", UserMealsUtil.getWithExceeded(service.getAll(LoggedUser.id()), LoggedUser.getCaloriesPerDay()));
-        return "mealList";
-    }
-
     public UserMeal get(int id) {
         int userId = LoggedUser.id();
         LOG.info("get meal {} for User {}", id, userId);
