@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
@@ -47,6 +48,7 @@ public class JdbcUserRepositoryImpl implements UserRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
+    @Transactional
     @Override
     public User save(User user) {
         MapSqlParameterSource map = new MapSqlParameterSource()
@@ -77,17 +79,20 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         return jdbcTemplate.update("DELETE FROM users WHERE id=?", id) != 0;
     }
 
+    @Transactional
     @Override
     public User get(int id) {
         List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id=?", ROW_MAPPER, id);
         return setRoles(DataAccessUtils.singleResult(users));
     }
 
+    @Transactional
     @Override
     public User getByEmail(String email) {
         return setRoles(jdbcTemplate.queryForObject("SELECT * FROM users WHERE email=?", ROW_MAPPER, email));
     }
 
+    @Transactional
     @Override
     public List<User> getAll() {
         List<User> users = jdbcTemplate.query("SELECT * FROM users ORDER BY name, email", ROW_MAPPER);
