@@ -69,7 +69,7 @@ function successNoty(text) {
     noty({
         text: text,
         type: 'success',
-        layout: 'bottomRight',
+        layout: 'center',
         timeout: true
     });
 }
